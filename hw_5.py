@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2 import OperationalError
 
-conn = psycopg2.connect(user="postgres", password="z9MxveD1Xwiv", host="10.72.101.48", port="5432")
+conn = psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port="5432")
 cur = conn.cursor()
 conn.autocommit = True
 
