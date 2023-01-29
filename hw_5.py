@@ -50,8 +50,7 @@ def find_client(cur,): # не уверена
     select_cl = """SELECT * FROM clients_data WHERE name=%s, surname=%s, email=%s, phones=%s;""", ()
     cur.execute(select_cl)
 
-# with psycopg2.connect(user="postgres", password="z9MxveD1Xwiv", host="10.72.101.48", port="5432", ) as conn:
-with psycopg2.connect(user="postgres", password="z9MxveD1Xwiv", host="10.72.101.48", port="5432", ) as conn:
+with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port="5432", ) as conn:
     with conn.cursor() as cur:
 
         if __name__ == "__main__":
