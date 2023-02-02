@@ -46,6 +46,10 @@ def delete_client(cur, client_id):
 #     select_cl = """SELECT * FROM clients_data WHERE name, surname, email, phones;""", (first_name, surname, email, phones)
 #     cur.execute(select_cl)
 
+# check if it works
+# post_records = ", ".join(["%s"] * len(posts))
+
+
 def find_client(cur,first_name=name, surname=surname, email=email, phones=phones):
     select_cl = """SELECT * FROM clients_data WHERE name=%s, surname=%s, email=%s, phones=%s;""", (first_name, surname, email, phones)
     cur.execute(select_cl)
