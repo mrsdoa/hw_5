@@ -25,9 +25,10 @@ def add_client(cur, first_name, last_name, email, phones=None):
 def add_phone(cur, client_id, phone):
     insert_phone = """INSERT INTO clients_data phones=%s WHERE client_id=%s;""", (client_id, phone)
     cur.execute(insert_phone)
-
+    
+#______________________________________
 # функция изменения информации о клиенте
-def change_client(cur, client_id, name, surname, email, phones):
+def change_client(cur, client_id=None, name=None, surname=None, email=None, phones=None):
     changes = """UPDATE clients_data SET client_id=%s, name=%s, surname=%s, email=%s, phones=%s WHERE id=%s;""", (client_id, name, surname, email, phones)
     cur.execute(changes)
 
@@ -40,18 +41,11 @@ def delete_phone(cur, client_id, phone):
 def delete_client(cur, client_id):
     delete_cl = """DELETE FROM clients_data name, surname, email, phones WHERE client_id=%s;""", (client_id)
     cur.execute(delete_cl)
-
+    
+#______________________________________
 # функция нахождения инфо о клиенте
-# def find_client(cur, first_name=None, surname=None, email=None, phones=None):
-#     select_cl = """SELECT * FROM clients_data WHERE name, surname, email, phones;""", (first_name, surname, email, phones)
-#     cur.execute(select_cl)
-
-# check if it works
-# post_records = ", ".join(["%s"] * len(posts))
-
-
-def find_client(cur,first_name=name, surname=surname, email=email, phones=phones):
-    select_cl = """SELECT * FROM clients_data WHERE name=%s, surname=%s, email=%s, phones=%s;""", (first_name, surname, email, phones)
+def find_client(cur, name=None, surname=None, email=None, phones=None):
+    select_cl = 'SELECT * FROM clients_data WHERE name=%(name)s", surname=%(surname)s", email=%(email)s", phones=%(phones)s"', {'name'= name, 'surname'=surname, 'email'=email, 'phones'=phones};
     cur.execute(select_cl)
 
 with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port="5432", ) as conn:
