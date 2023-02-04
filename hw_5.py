@@ -28,8 +28,8 @@ def add_phone(cur, client_id, phone):
     
 #______________________________________
 # функция изменения информации о клиенте
-def change_client(cur, client_id, name, surname, email, phones):
-    changes = """UPDATE clients_data SET name=%s, surname=%s, email=%s, phones=%s WHERE clien_id=%s;""", (client_id, name, surname, email, phones)
+def change_client(cur, client_id, name=None, surname=None, email=None, phones=None):
+    changes = """UPDATE clients_data SET name=%s, surname=%s, email=%s, phones=%s WHERE client_id=%s;""", (client_id, name, surname, email, phones,)
     cur.execute(changes, input_data)
 
 # функция удаления номера телефона
@@ -79,7 +79,6 @@ with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port
             natalia_2 = add_phone(cur, 1, 89089723345)
 
             # обновляем инфу по клиенту
-            # input_data = change_client(cur, client_id=1, surname='Алексеева')
             input_data = (client_id, name, surname, email, phones)
             change_client(1, 'Алексеева') # проверить
 
