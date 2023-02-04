@@ -28,9 +28,9 @@ def add_phone(cur, client_id, phone):
     
 #______________________________________
 # функция изменения информации о клиенте
-def change_client(cur, client_id=None, name=None, surname=None, email=None, phones=None):
-    changes = """UPDATE clients_data SET client_id=%s, name=%s, surname=%s, email=%s, phones=%s WHERE id=%s;""", (client_id, name, surname, email, phones)
-    cur.execute(changes)
+def change_client(cur, client_id, name, surname, email, phones):
+    changes = """UPDATE clients_data SET name=%s, surname=%s, email=%s, phones=%s WHERE clien_id=%s;""", (client_id, name, surname, email, phones)
+    cur.execute(changes, input_data)
 
 # функция удаления номера телефона
 def delete_phone(cur, client_id, phone):
@@ -79,7 +79,9 @@ with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port
             natalia_2 = add_phone(cur, 1, 89089723345)
 
             # обновляем инфу по клиенту
-            natalia = change_client(cur, 1, surname='Алексеева')
+            # input_data = change_client(cur, client_id=1, surname='Алексеева')
+            input_data = (client_id, name, surname, email, phones)
+            change_client(1, 'Алексеева') # проверить
 
             # удаляем номер
             delete_ph1 = delete_phone(cur, 2, 89651381516)
@@ -91,4 +93,3 @@ with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port
             find_cl1 = find_client(cur, name='Дарья')
 
 conn.close()
-
