@@ -32,6 +32,13 @@ def change_client(cur, client_id, name=None, surname=None, email=None, phones=No
     changes = """UPDATE clients_data SET name=%s, surname=%s, email=%s, phones=%s WHERE client_id=%s;""", (client_id, name, surname, email, phones,)
     cur.execute(changes, input_data)
 
+# def find_client(cur, name, surname, email, phones):
+#     cur.execute("""UPDATE clients_data SET (name=%(name)s OR %(name)s IS NULL)
+#             AND (surname=%(surname)s OR %(surname)s IS NULL)
+#             AND (email=%(email)s OR %(email)s IS NULL)
+#             AND (phones=%(phones)s OR %(phones)s IS NULL) WHERE client_id=%s""",
+#             {'name':name, 'surname':surname, 'email':email, 'phones':phones})    
+
 # функция удаления номера телефона
 def delete_phone(cur, client_id, phone):
     delete_ = """DELETE FROM clients_data phone=%s WHERE client_id=%s;""", (client_id, phone)
@@ -47,6 +54,41 @@ def delete_client(cur, client_id):
 def find_client(cur, name=None, surname=None, email=None, phones=None):
     select_cl = 'SELECT * FROM clients_data WHERE name=%(name)s", surname=%(surname)s", email=%(email)s", phones=%(phones)s"', {'name'= name, 'surname'=surname, 'email'=email, 'phones'=phones};
     cur.execute(select_cl)
+    
+# def find_client(cur, name, surname, email, phones):
+#     cur.execute("""SELECT * FROM clients_data 
+#             WHERE (name=%(name)s OR %(name)s IS NULL)
+#             AND (surname=%(surname)s OR %(surname)s IS NULL)
+#             AND (email=%(email)s OR %(email)s IS NULL)
+#             AND (phones=%(phones)s OR %(phones)s IS NULL)""",
+#             {'name':name, 'surname':surname, 'email':email, 'phones':phones})
+
+# OR
+
+# def find_client(cur, **kwargs):
+
+#     filds = ('name', 'surname', 'email', 'phones')
+
+#     for key, value in kwargs.items():
+#         if key not in filds:
+#             return "[ERROR] fields not found"
+
+#     tuple_fields_values = tuple(zip(kwargs.keys(), kwargs.values()))
+
+#     comprehension_fields_values = [f'{x[0]}={x[1]}' for x in tuple_fields_values]
+
+#     fields_values = ' and '.join(comprehension_fields_values)
+
+#     cur.execute(f"""SELECT name, surname, email, phones FROM clients_data c 
+#                     JOIN phones p on p.client_id = c.client_id WHERE {fields_values}""")
+#     info = cursor.fetchall()
+
+#     if info:
+#         return f"[INFO]: found successful: {info}"
+#     else:
+#         return f"[INFO]: client not found"
+    
+    
 
 with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port="5432", ) as conn:
     with conn.cursor() as cur:
