@@ -64,7 +64,7 @@ def find_client(cur, name=None, surname=None, email=None, phones=None):
 
 
 if __name__ == "__main__":
-    with psycopg2.connect(user="postgres", password="z9MxveD1Xwiv", host="10.72.101.48", port="5432", ) as conn:
+    with psycopg2.connect(user="postgres", password="...", host="10.72.101.48", port="5432", ) as conn:
         with conn.cursor() as cur:
             # создаём новую бд - ВСЁ ОК
             create_db_query = "CREATE DATABASE clients_db"
